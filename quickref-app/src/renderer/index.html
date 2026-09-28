@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>QuickRef</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="titlebar">
+  <div class="dots">
+    <button class="winbtn" id="winMin" title="Minimize"><span class="dot"></span></button>
+    <button class="winbtn" id="winClose" title="Close"><span class="dot dot-close"></span></button>
+  </div>
+  <span class="name">QuickRef</span>
+  <span class="spacer"></span>
+  <button class="themebtn" id="themeBtn" title="Toggle theme">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.4 5.4 0 0 1-7.54-7.54C13.42 2.79 12.72 3 12 3Z"/></svg>
+  </button>
+</div>
+
+<div class="app">
+  <div class="rail">
+    <svg class="mark" viewBox="0 0 160 160"><rect width="160" height="160" rx="32" fill="#0B1E4D"/><path d="M160 0 L160 40 L120 0 Z" fill="#1868DB"/><text x="80" y="102" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-weight="700" font-size="72" fill="#ffffff">QR</text></svg>
+    <button class="active" data-filter="all" title="All entries">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="7" height="7" rx="1.5"/><rect x="14" y="4" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+    </button>
+    <button data-filter="sop" title="SOPs">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+    </button>
+    <button data-filter="note" title="Notes">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h13l3 3v13H4z"/><path d="M4 4v13h13"/></svg>
+    </button>
+    <button data-filter="pinned" title="Pinned">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 17v5"/><path d="M8 3h8l-1 6 3 3v2H6v-2l3-3z"/></svg>
+    </button>
+    <div class="railspacer"></div>
+    <button id="prefsRailBtn" title="Preferences">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.04 1.56V21a2 2 0 1 1-4 0v-.09A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.56-1.04H3a2 2 0 1 1 0-4h.09A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1.04-1.56V3a2 2 0 1 1 4 0v.09A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.87.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.7 1.7 0 0 0 19.4 9c.36.62 1 .99 1.7 1h.09a2 2 0 1 1 0 4H21a1.7 1.7 0 0 0-1.6 1Z"/></svg>
+    </button>
+  </div>
+
+  <div class="listpane">
+    <div class="listtop">
+      <div class="searchbox">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="search" placeholder="Search entries and documents">
+      </div>
+      <div class="chiprow">
+        <button class="chip active" data-chip="all">All</button>
+        <button class="chip" data-chip="sop">SOP</button>
+        <button class="chip" data-chip="note">Note</button>
+      </div>
+      <div class="newrow">
+        <button class="newbtn primary" id="newSop">+ New SOP</button>
+        <button class="newbtn" id="newNote">+ New note</button>
+      </div>
+    </div>
+    <div class="list" id="list"></div>
+  </div>
+
+  <div class="detail" id="detail"></div>
+</div>
+
+<div class="prefsOverlay" id="prefsOverlay" style="display:none">
+  <div class="prefsCard">
+    <div class="bar"><strong>Preferences</strong><button class="btn ghost" id="prefsClose">✕ Close</button></div>
+    <div class="prefsGrid">
+      <div>
+        <span class="preftitle">Categories</span>
+        <div class="preflist" id="catList"></div>
+        <div class="prefaddrow"><input id="catNew" placeholder="Add category"><button class="btn ghost" id="catAdd">Add</button></div>
+      </div>
+      <div>
+        <span class="preftitle">Platforms</span>
+        <div class="preflist" id="platList"></div>
+        <div class="prefaddrow"><input id="platNew" placeholder="Add platform"><button class="btn ghost" id="platAdd">Add</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="../../dist/renderer/bundle.js"></script>
+</body>
+</html>
