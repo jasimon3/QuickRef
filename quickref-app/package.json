@@ -1,0 +1,39 @@
+{
+  "name": "quickref",
+  "version": "0.4.0",
+  "description": "QuickRef — offline SOP and notes reference tool",
+  "main": "src/main/main.js",
+  "private": true,
+  "scripts": {
+    "build:renderer": "node build.js",
+    "start": "npm run build:renderer && electron .",
+    "dev": "npm run build:renderer && electron . --dev",
+    "dist": "npm run build:renderer && electron-builder"
+  },
+  "dependencies": {
+    "sql.js": "^1.11.0",
+    "@tiptap/core": "^2.6.6",
+    "@tiptap/starter-kit": "^2.6.6",
+    "@tiptap/extension-underline": "^2.6.6",
+    "@tiptap/extension-text-style": "^2.6.6",
+    "@tiptap/extension-color": "^2.6.6",
+    "@tiptap/extension-placeholder": "^2.6.6"
+  },
+  "devDependencies": {
+    "electron": "^32.0.0",
+    "electron-builder": "^25.0.0",
+    "esbuild": "^0.23.0"
+  },
+  "build": {
+    "appId": "com.quickref.app",
+    "productName": "QuickRef",
+    "directories": { "output": "release" },
+    "asar": false,
+    "win": {
+      "target": "portable"
+    },
+    "portable": {
+      "artifactName": "QuickRef-portable.exe"
+    }
+  }
+}
